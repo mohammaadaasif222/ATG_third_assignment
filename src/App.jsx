@@ -37,16 +37,16 @@ const App = () => {
         <div className="row d-flex justify-content-evenly  flex-wrap-reverse">
           <div className="col-md-6 col-sm-12 bg-light rounded">
             <ul className="list-unstyled bg-light py-3 px-2 rounded">
-              <li>All users({`${users?.length}`})</li>
+              <li>All users({`${users? users?.length : '0'}`})</li>
             </ul>
             <hr />
-            {users?.map((user, index) => {
+            {users ? users?.map((user, index) => {
               return (
                 <Suspense fallback={<Spinner />} key={user?.createdAt}>
                   <UserCard user={user} select={selectedUser} />
                 </Suspense>
               );
-            })}
+            }) : <Spinner/>}
           </div>
           <div className="col-md-6 bg-light rounded">
             {loading ? (
@@ -57,21 +57,28 @@ const App = () => {
             ) : (
               user && (
                 <div className="row py-5">
-                  <div className="col-md-6 card">
+                  <div className="col-md-6 py-3 border-end">
                     <div className="text-center">
                       <img
                         src={user?.avatar || "https://res.cloudinary.com/mae-com-in/image/upload/v1699458800/images_bx6zzs.png"}
                         width="100"
                         className="rounded-circle"
                       />
+                    <p className="text-center mb-0 text-warning py-2 mt-2 rounded-pill bg-secondary" style={{fontSize:'small'}}><strong>Username: </strong> {`${user?.profile?.username}`}</p>
+
                     </div>
                     <hr/>
                     <p className="text-center mb-0"><strong>Name : {`${user?.profile?.firstName} ${ user?.profile?.lastName}`}</strong></p>
                     <p className="text-center" style={{fontSize:'0.7rem'}}><strong>Job Title: </strong>{`${user?.jobTitle}`}</p>
-                    <hr/>
-                    <p className="text-muted text-center" style={{fontSize:'0.7rem'}} ><strong>Bio: </strong>{user?.Bio}</p>
                   </div>
-                  <div className="col-md-6 card">hello</div>
+                  <div className="col-md-6 ">
+                    <p className="text-muted text-center pt-5" style={{fontSize:'0.7rem'}} ><strong>Bio: </strong>{user?.Bio}</p>
+                    <div className="d-flex gap-3">
+                    <hr/>
+                      <p className="text-muted text-center">Email:</p>
+                      <p className="text-muted text-center">{user?.profile?.email}</p>
+                    </div>
+                  </div>
                 </div>
               )
             )}
