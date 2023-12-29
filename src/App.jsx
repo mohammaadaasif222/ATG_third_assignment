@@ -75,8 +75,8 @@ const App = () => {
                     <p className="text-muted text-center pt-5" style={{fontSize:'0.7rem'}} ><strong>Bio: </strong>{user?.Bio}</p>
                     <div className="d-flex gap-3">
                     <hr/>
-                      <p className="text-muted text-center">Email:</p>
-                      <p className="text-muted text-center">{user?.profile?.email}</p>
+                      <strong className="text-muted text-center" style={{fontSize:'0.7rem'}}>Email:</strong>
+                      <p className="text-muted text-center" style={{fontSize:'0.7rem'}}>{user?.profile?.email}</p>
                     </div>
                   </div>
                 </div>
